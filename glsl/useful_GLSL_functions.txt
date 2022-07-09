@@ -1,0 +1,31 @@
+float smoothstep(float edge, float value, float softness)
+{
+	float s = softness*0.5;
+	float v = (value - edge)/s;
+	return clamp(v, 0.0, 1.0);
+}
+
+float circle(vec2 position, float radius, float softness)
+{
+	return 1 - smoothstep(radius, length(position), softness);
+}
+
+float rectangle(vec2 position, vec2 scale)
+{
+	vec2 bottomleft = step(-scale, position);
+	vec2 topright = 1.0 - step(scale, position);
+	return bottomleft.x * bottomleft.y * topright.x * topright.y;
+}
+
+float polygon(vec2 position, float radius, int sides, float softness)
+{
+	float slice = (2.0 * PI) / sides;
+	float angle = atan(position.y, position.x);
+	float angleInSection = mod(angle, (2.0 * PI) / sides);
+	float m = -1.0 / tan(slice/2.0);
+	float n = tan(angleInSection);
+	float x = m/(m-n);
+	float y = m*n/(m-n);
+	float r = length(vec2(x, y));
+	return 1- smoothstep(radius*r, length(position), softness);
+}

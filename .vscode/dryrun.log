@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/aria/Desktop/Projects/C++/OpenGL_Experiment'
+make: Leaving directory '/home/aria/Desktop/Projects/C++/OpenGL_Experiment'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+
